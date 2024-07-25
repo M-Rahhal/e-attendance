@@ -9,6 +9,8 @@ import com.esense.attendance.request.RegisterRequest;
 import com.esense.attendance.respose.GeneralResponse;
 import com.esense.attendance.service.AuthService;
 import com.esense.attendance.service.EmployeeService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +36,12 @@ public class AuthController {
 
     @PublicAPI
     @PostMapping(path = "/login")
-    public ResponseEntity<GeneralResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<GeneralResponse> login(@RequestBody LoginRequest request , HttpServletResponse response) {
         String token = employeeService.login(request.email() , request.password());
-        Map<String , String> responsePayload = new HashMap<>();
-        responsePayload.put("token", token);
 
-        GeneralResponse response = new GeneralResponse(true , 200 , responsePayload);
-        return ResponseEntity.ok(response);
+        response.setHeader("Authorization", "Bearer " + token);
+
+        return ResponseEntity.ok(new GeneralResponse(true , 200 , null));
     }
 
     @AdminAPI
