@@ -2,6 +2,8 @@ package com.esense.attendance.entity.key;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ public class AttendanceId implements Serializable {
     private Long employeeId;
 
     @Column(name = "attendance_date")
+    @Temporal(TemporalType.DATE)
     private Date attendanceDate;
 
     @Override

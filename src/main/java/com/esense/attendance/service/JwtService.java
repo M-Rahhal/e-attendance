@@ -14,7 +14,7 @@ import java.util.Map;
 public class JwtService {
 
     @Value("${app.jwt.secret}")
-    private static String secretKey;
+    private String secretKey;
 
     private static final long EXPIRATION_TIME = 1000L * 60L * 60L * 24L * 7L; // 24 hours in milliseconds
 

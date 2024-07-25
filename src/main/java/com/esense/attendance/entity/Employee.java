@@ -55,7 +55,7 @@ public class Employee {
     @Column(
             name = "password",
             nullable = false,
-            length = 50
+            length = 256
     )
     private String password;
 
@@ -85,12 +85,14 @@ public class Employee {
             name = "joining_date",
             nullable = false
     )
+    @Temporal(TemporalType.DATE)
     private Date joiningDate;
 
     @Column(
             name = "date_of_birth",
             nullable = false
     )
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
     @OneToMany(

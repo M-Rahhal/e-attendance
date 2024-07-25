@@ -27,4 +27,9 @@ public class Attendance {
     @OneToMany(mappedBy = "attendance", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Punch> punches;
 
+    public void addPunch(Punch punch) {
+        if (punch != null)
+            punches.add(punch);
+    }
+
 }

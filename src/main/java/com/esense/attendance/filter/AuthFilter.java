@@ -78,7 +78,7 @@ public class AuthFilter implements Filter {
 
                     if (token == null || !token.startsWith("Bearer "))
                         throw new UnauthorizedException();
-
+                    token = token.substring(7);
                     EmployeeDto employee = authService.verifyEmployeeToken(token);
 
                     if (employee == null)

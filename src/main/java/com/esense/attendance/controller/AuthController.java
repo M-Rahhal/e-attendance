@@ -24,13 +24,11 @@ import java.util.Map;
 public class AuthController {
 
 
-    private final AuthService authService;
     private final EmployeeService employeeService;
 
 
     @Autowired
-    public AuthController(AuthService authService, EmployeeService employeeService) {
-        this.authService = authService;
+    public AuthController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
