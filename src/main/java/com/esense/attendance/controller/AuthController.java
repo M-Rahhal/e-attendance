@@ -3,13 +3,10 @@ package com.esense.attendance.controller;
 
 import com.esense.attendance.annotation.AdminAPI;
 import com.esense.attendance.annotation.PublicAPI;
-import com.esense.attendance.dto.EmployeeDto;
 import com.esense.attendance.request.LoginRequest;
 import com.esense.attendance.request.RegisterRequest;
 import com.esense.attendance.respose.GeneralResponse;
-import com.esense.attendance.service.AuthService;
 import com.esense.attendance.service.EmployeeService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/auth")
