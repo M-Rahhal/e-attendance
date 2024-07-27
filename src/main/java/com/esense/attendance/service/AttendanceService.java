@@ -1,6 +1,7 @@
 package com.esense.attendance.service;
 
 
+import com.esense.attendance.dto.AttendanceDto;
 import com.esense.attendance.dto.EmployeeDto;
 import com.esense.attendance.entity.Attendance;
 import com.esense.attendance.entity.Employee;
@@ -15,6 +16,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,5 +55,14 @@ public class AttendanceService {
 
     public void saveAttendanceRecord(Attendance attendance){
         this.attendanceRepository.save(attendance);
+    }
+
+    public Date getLastAttendaceDate(Long id){
+        return attendanceRepository.findNewestDate(id);
+    }
+
+    public Attendance findById(Long id , Date date){
+        AttendanceId attendanceId = new AttendanceId(id , date);
+        return attendanceRepository.findById(attendanceId).get();
     }
 }
