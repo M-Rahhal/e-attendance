@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping(path = "/auth")
@@ -34,9 +37,9 @@ public class AuthController {
     public ResponseEntity<GeneralResponse> login(@RequestBody LoginRequest request , HttpServletResponse response) {
         String token = employeeService.login(request.email() , request.password());
 
-        response.setHeader("Authorization", "Bearer " + token);
-
-        return ResponseEntity.ok(new GeneralResponse(true , 200 , null));
+        Map<String , String> map = new HashMap<>();
+        map.put("token", token);
+        return ResponseEntity.ok(new GeneralResponse(true , 200 , map));
     }
 
     @AdminAPI
