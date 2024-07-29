@@ -3,6 +3,7 @@ package com.esense.attendance.controller;
 
 import com.esense.attendance.annotation.AdminAPI;
 import com.esense.attendance.annotation.PublicAPI;
+import com.esense.attendance.dto.EmployeeDto;
 import com.esense.attendance.request.LoginRequest;
 import com.esense.attendance.request.RegisterRequest;
 import com.esense.attendance.respose.GeneralResponse;
@@ -36,9 +37,10 @@ public class AuthController {
     @PostMapping(path = "/login")
     public ResponseEntity<GeneralResponse> login(@RequestBody LoginRequest request , HttpServletResponse response) {
         String token = employeeService.login(request.email() , request.password());
-
+        EmployeeDto employeeDto = employeeService.getEmployeeByEmail(request.email());
         Map<String , String> map = new HashMap<>();
         map.put("token", token);
+        map.put("role", employeeDto.getRole());
         return ResponseEntity.ok(new GeneralResponse(true , 200 , map));
     }
 

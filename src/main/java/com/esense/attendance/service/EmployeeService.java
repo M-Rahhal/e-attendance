@@ -75,9 +75,9 @@ public class EmployeeService {
         Optional<Employee> employee = employeeRepository.findById(employeeId);
         return employee.orElseThrow(NoSuchRecordException::new);
     }
-    public Employee getEmployeeByEmail(String email) {
+    public EmployeeDto getEmployeeByEmail(String email) {
         Optional<Employee> employee = employeeRepository.findByEmail(email);
-        return employee.orElseThrow(NoSuchRecordException::new);
+        return EmployeeMapper.toDto(employee.orElseThrow(NoSuchRecordException::new));
     }
 
     public Employee saveEmployee(Employee employee) {
