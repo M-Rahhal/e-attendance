@@ -7,6 +7,6 @@ import java.util.Map;
 public record GeneralResponse(
         @JsonProperty("status") boolean status,
         @JsonProperty("status_code") int statusCode,
-        @JsonProperty("map_properties") Map<String, String> mapProperties
+        @JsonProperty("map_properties") Map<String, Object> mapProperties
 ) {
 }

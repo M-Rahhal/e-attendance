@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 @RestController
@@ -38,7 +39,7 @@ public class AuthController {
     public ResponseEntity<GeneralResponse> login(@RequestBody LoginRequest request , HttpServletResponse response) {
         String token = employeeService.login(request.email() , request.password());
         EmployeeDto employeeDto = employeeService.getEmployeeByEmail(request.email());
-        Map<String , String> map = new HashMap<>();
+        Map<String , Object> map = new HashMap<>();
         map.put("token", token);
         map.put("role", employeeDto.getRole());
         return ResponseEntity.ok(new GeneralResponse(true , 200 , map));

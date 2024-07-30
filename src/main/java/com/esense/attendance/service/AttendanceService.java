@@ -8,6 +8,7 @@ import com.esense.attendance.entity.Employee;
 import com.esense.attendance.entity.key.AttendanceId;
 import com.esense.attendance.exception.NoSuchRecordException;
 import com.esense.attendance.exception.RegisteredAttendanceRecordException;
+import com.esense.attendance.mapper.AttendanceMapper;
 import com.esense.attendance.repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AttendanceService {
@@ -64,5 +66,9 @@ public class AttendanceService {
     public Attendance findById(Long id , Date date){
         AttendanceId attendanceId = new AttendanceId(id , date);
         return attendanceRepository.findById(attendanceId).get();
+    }
+
+    public List<AttendanceDto> findAttendancesByWeek(Date startDate , Date endDate , Long id){
+        return attendanceRepository.findAttendanceBetweenDates(id ,startDate , endDate).stream().map(AttendanceMapper::toDto).collect(Collectors.toList());
     }
 }

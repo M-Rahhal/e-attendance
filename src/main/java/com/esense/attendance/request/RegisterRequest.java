@@ -2,7 +2,6 @@ package com.esense.attendance.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
 
 import java.util.Date;
 
