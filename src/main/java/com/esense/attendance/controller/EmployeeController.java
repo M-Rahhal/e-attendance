@@ -21,8 +21,8 @@ import java.util.Map;
 public class EmployeeController {
 
     @EmployeeAPI
-    @GetMapping("/all-employees")
-    public ResponseEntity<GeneralResponse> getAllEmployeesLastAttendance(HttpServletRequest request) {
+    @GetMapping()
+    public ResponseEntity<GeneralResponse> getEmployeeDetails(HttpServletRequest request) {
         Map<String, Object > map = new HashMap<>();
         EmployeeDto employeeDto = (EmployeeDto) request.getAttribute("employee");
         map.put("employee" , employeeDto);
