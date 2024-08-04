@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
+
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -17,33 +18,28 @@ import java.util.*;
 @Service
 public class ReportService {
 
-    private static final String JASPER_FILE_PATH  = "src/main/resources/templates/jasper/Blank_A4_2.jasper";
+    private static final String JASPER_FILE_PATH  = "C:\\Users\\MRahhal\\Downloads\\attendance\\attendance\\src\\main\\resources\\templates\\jasper\\report.jrxml";
 
-    @Value("${spring.datasource.url}")
-    private String connectionUrl;
-
-    @Value("${spring.datasource.username}")
-    private String connectionUsername;
-
-    @Value("${spring.datasource.password}")
-    private String connectionPassword;
 
     @Autowired
     private DataSource dataSource;
 
 
 
-
-    public void generateProductsReport(Long id , Date startDate , Date endDate , HttpServletResponse response) throws JRException, SQLException, IOException {
+    public void generateProductsReportAsPdfStream(Long id , String fullName , String email , Date startDate , Date endDate , HttpServletResponse response) throws JRException, SQLException, IOException {
 
         Connection connection = dataSource.getConnection();
         HashMap<String , Object> map = new HashMap<>();
         map.put("id" , id);
         map.put("start_date" , startDate);
         map.put("end_date" , endDate);
+        map.put("title" , "Attendance Report");
+        map.put("EmployeeName" , fullName);
+        map.put("email" , email);
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=report.pdf");
-        JasperPrint jasperPrint =  JasperFillManager.fillReport(JASPER_FILE_PATH, new HashMap<>(), connection);
+        JasperReport report = JasperCompileManager.compileReport(JASPER_FILE_PATH);
+        JasperPrint jasperPrint =  JasperFillManager.fillReport(report, map, connection);
         JasperExportManager.exportReportToPdfStream(jasperPrint , response.getOutputStream());
     }
+
 }
